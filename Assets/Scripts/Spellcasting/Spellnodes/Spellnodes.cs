@@ -1,3 +1,5 @@
+//Script on each spellnode. Enables identification of spellnodes via enums/IDs. Also enables visual feedback reaction to being touched.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Spellnodes : MonoBehaviour
 {
     //Enum
-    public enum SpellnodeID {ID1, ID2, ID3, ID4, ID5, ID6, ID7, ID8, ID9, ID10, ID11, ID12, ID13, ID14, ID15, ID16, ID17, ID18, ID19, ID20, ID21, ID22, ID23, ID24, ID25, ID26, ID27 };
+    public enum SpellnodeID {ID1, ID2, ID3, ID4, ID5, ID6, ID7, ID8, ID9, ID10, ID11, ID12, ID13, ID14, ID15, ID16, ID17, ID18, ID19, ID20, ID21, ID22, ID23, ID24, ID25, ID26, ID27};
 
     //Public Variables
     //Enum Variable
@@ -32,11 +34,14 @@ public class Spellnodes : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debugging
-        Debug.Log(other.gameObject.name);
+        //Debug.Log(other.gameObject.name);
 
         //Check if the entering collider is the spellpose collider
         if (other.gameObject.tag == "Spellpose Collider")
         {
+            //Add this spellnode to the RuneCastingDetection's spellnodeSequence List
+            RuneCastingDetection.Instance.AddSpellnodeToSequence(this.gameObject);
+
             //Call sizing lerp coroutine to grow the object
             StartCoroutine(LerpSize(defaultSize, hoverSize, 0.1f));
 

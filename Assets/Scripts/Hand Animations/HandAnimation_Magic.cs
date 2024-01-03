@@ -1,3 +1,5 @@
+//Script to controll the player's hand animations via input reference and animation blend trees
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

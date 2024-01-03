@@ -1,3 +1,5 @@
+//Default Hand Animation script, including Grab and Idle pose
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
