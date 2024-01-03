@@ -1,3 +1,5 @@
+//Script to keep track of user input references
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

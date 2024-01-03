@@ -1,3 +1,5 @@
+//Script that establishes a "spellpose" mode including visual and auditory feedback. This mode allows the activations of spellnodes via collision
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -4206,6 +4206,8 @@ GameObject:
   m_Component:
   - component: {fileID: 712376471}
   - component: {fileID: 712376472}
+  - component: {fileID: 712376474}
+  - component: {fileID: 712376473}
   m_Layer: 0
   m_Name: Spellcube
   m_TagString: Untagged
@@ -4283,6 +4285,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &712376473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712376470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06731bece8f9a7d4a869973a2fdfa11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rune_1_Push: 040000000d00000016000000
+--- !u!114 &712376474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712376470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c8fb17a6d53ce4fa972feb49273c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spellnodeSequence: []
+  runeSequence:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &722106598
 GameObject:
   m_ObjectHideFlags: 0
