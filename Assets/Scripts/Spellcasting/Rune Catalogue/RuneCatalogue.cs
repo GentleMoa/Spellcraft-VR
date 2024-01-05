@@ -22,37 +22,71 @@ public class RuneCatalogue : MonoBehaviour
         }
     }
 
+    //Private Variables
+    private Color32 lrColorRed = new Color32 (255, 0, 0, 255);
+    private Color32 lrColorGreen = new Color32(0, 255, 0, 255);
+
     //Rune Catalogue
 
     //Rune 1 "Push" (ID5, ID14, ID23)
     public Spellnodes.SpellnodeID[] rune_1_Push;
 
+    //Function to check if a passed spellnodeSequence resembles any valid rune
     public bool CheckForRune(List<GameObject> list)
     {
+        //Checking if the passed spellnodeSequence has the same length/count as the rune it is being compared to
         if (rune_1_Push.Length != list.Count)
         {
             Debug.Log("Can't compare spellnodeSequence List with rune Arrays, they are not of the same Length/Count!");
-            RuneCastingDetection.Instance.spellnodeSequence.Clear();
+
+            //Clear the spellnodeSequence List after a failed rune recognition
+            Invoke("ClearSpellnodeSequence", 0.1f);
+
+            //Color the Line Renderer red!
+            RuneCastingDetection.Instance.lineRenderer.startColor = lrColorRed;
+            RuneCastingDetection.Instance.lineRenderer.endColor = lrColorRed;
+
             return false;
         }
         else
         {
             for (int i = 0; i < rune_1_Push.Length; i++)
             {
+                //Checking via a foor loop if each spellnode stored in the checked spellnodeSequence is different from the compared counterpart in the rune
                 if (rune_1_Push[i] != list[i].GetComponent<Spellnodes>().spellnodeID)
                 {
+                    //If so, rune recognition finishes unsuccessful with return false
                     Debug.Log("Rune 1 is not a match for this sequence!");
-                    RuneCastingDetection.Instance.spellnodeSequence.Clear();
+
+                    //Clear the spellnodeSequence List after a failed rune recognition
+                    Invoke("ClearSpellnodeSequence", 0.1f);
+
+                    //Color the Line Renderer red!
+                    RuneCastingDetection.Instance.lineRenderer.startColor = lrColorRed;
+                    RuneCastingDetection.Instance.lineRenderer.endColor = lrColorRed;
+
                     return false;
                 }
             }
 
+            //However, if no differences are detected, this means that the spellnodes of the tested spellnodeSequence and the rune are identical. Rune recognition finishes successfully with return true
             //Add this rune array to the RuneCastingDetection's runeSequence List
             RuneCastingDetection.Instance.runeSequence.Add(rune_1_Push);
-            RuneCastingDetection.Instance.spellnodeSequence.Clear();
+
+            //Clear the spellnodeSequence List after a successful rune recognition
+            Invoke("ClearSpellnodeSequence", 0.1f);
+
+            //Color the Line Renderer green!
+            RuneCastingDetection.Instance.lineRenderer.startColor = lrColorGreen;
+            RuneCastingDetection.Instance.lineRenderer.endColor = lrColorGreen;
 
             Debug.Log("Rune 1 IS A MATCH!!");
             return true;
         }
+    }
+
+    private void ClearSpellnodeSequence()
+    {
+        RuneCastingDetection.Instance.spellnodeSequence.Clear();
     }
 }
