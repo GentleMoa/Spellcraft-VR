@@ -11,7 +11,6 @@ public class Spellnodes : MonoBehaviour
     public enum SpellnodeID {ID1, ID2, ID3, ID4, ID5, ID6, ID7, ID8, ID9, ID10, ID11, ID12, ID13, ID14, ID15, ID16, ID17, ID18, ID19, ID20, ID21, ID22, ID23, ID24, ID25, ID26, ID27};
 
     //Public Variables
-    //Enum Variable
     public SpellnodeID spellnodeID;
 
     //Private Variables
@@ -39,8 +38,16 @@ public class Spellnodes : MonoBehaviour
         //Check if the entering collider is the spellpose collider
         if (other.gameObject.tag == "Spellpose Collider")
         {
-            //Add this spellnode to the RuneCastingDetection's spellnodeSequence List
+            //Add this spellnode to the RuneCastingDetection's spellnodeSequence List for rune recognition once the 3-part sequence is completed
             RuneCastingDetection.Instance.AddSpellnodeToSequence(this.gameObject);
+
+            //Checking if the line Renderer is currently eligible for drawing/adding new points to it
+            if (RuneCastingDetection.Instance.lrDrawable == true)
+            {
+                //Call the UpdateLineRenderer function to visualize the rune, which is being drawn
+                //Invoke("UpdateLineRenderer", 0.05f);
+                UpdateLineRenderer();
+            }
 
             //Call sizing lerp coroutine to grow the object
             StartCoroutine(LerpSize(defaultSize, hoverSize, 0.1f));
@@ -73,5 +80,18 @@ public class Spellnodes : MonoBehaviour
         }
 
         transform.localScale = endSize;
+    }
+
+    private void UpdateLineRenderer()
+    {
+        //Debugging
+        //Debug.Log("Spellnode Sequence Index: " + RuneCastingDetection.Instance.spellnodeSequence.IndexOf(gameObject));
+        //Debug.Log("Line Renderer Position Count: " + RuneCastingDetection.Instance.lineRenderer.positionCount);
+
+        //Sets the "positionCount" or the length of the position Array of the line renderer to the Index at which this spellnode is placed within the spellnodeSequence List
+        RuneCastingDetection.Instance.lineRenderer.positionCount = RuneCastingDetection.Instance.spellnodeSequence.IndexOf(gameObject) + 1;
+
+        //Sets the position of the respective line Renderer Vertex to the local (?!) position of this spellnode
+        RuneCastingDetection.Instance.lineRenderer.SetPosition(RuneCastingDetection.Instance.spellnodeSequence.IndexOf(gameObject), gameObject.transform.localPosition);
     }
 }
