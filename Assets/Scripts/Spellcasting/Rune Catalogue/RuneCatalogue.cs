@@ -27,9 +27,13 @@ public class RuneCatalogue : MonoBehaviour
     private Color32 lrColorGreen = new Color32(0, 255, 0, 255);
 
     //Rune Catalogue
-
     //Rune 1 "Push" (ID5, ID14, ID23)
     public Spellnodes.SpellnodeID[] rune_1_Push;
+
+    //Serialized Variables
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip SFX_rune_1;
+    [SerializeField] private AudioClip SFX_invalidRune;
 
     //Function to check if a passed spellnodeSequence resembles any valid rune
     public bool CheckForRune(List<GameObject> list)
@@ -45,6 +49,10 @@ public class RuneCatalogue : MonoBehaviour
             //Color the Line Renderer red!
             RuneCastingDetection.Instance.lineRenderer.startColor = lrColorRed;
             RuneCastingDetection.Instance.lineRenderer.endColor = lrColorRed;
+
+            //Add auditory feedback for invalid rune
+            audioSource.clip = SFX_invalidRune;
+            audioSource.Play();
 
             return false;
         }
@@ -65,6 +73,10 @@ public class RuneCatalogue : MonoBehaviour
                     RuneCastingDetection.Instance.lineRenderer.startColor = lrColorRed;
                     RuneCastingDetection.Instance.lineRenderer.endColor = lrColorRed;
 
+                    //Add auditory feedback for invalid rune
+                    audioSource.clip = SFX_invalidRune;
+                    audioSource.Play();
+
                     return false;
                 }
             }
@@ -79,6 +91,10 @@ public class RuneCatalogue : MonoBehaviour
             //Color the Line Renderer green!
             RuneCastingDetection.Instance.lineRenderer.startColor = lrColorGreen;
             RuneCastingDetection.Instance.lineRenderer.endColor = lrColorGreen;
+
+            //Add auditory feedback for valid rune
+            audioSource.clip = SFX_rune_1;
+            audioSource.Play();
 
             Debug.Log("Rune 1 IS A MATCH!!");
             return true;
