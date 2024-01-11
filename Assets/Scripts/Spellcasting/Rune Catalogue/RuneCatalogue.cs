@@ -46,6 +46,10 @@ public class RuneCatalogue : MonoBehaviour
             //Clear the spellnodeSequence List after a failed rune recognition
             Invoke("ClearSpellnodeSequence", 0.1f);
 
+            //Temporarily locking the spellnodes, so no new ones can be added to the sequence. Lasts for 2 secs (the same duration as the lineRenderer lingers after rune recognition)
+            RuneCastingDetection.Instance.spellnodesLocked = true;
+            Invoke("DelayedSpellnodesUnlock", 2.0f);
+
             //Color the Line Renderer red!
             RuneCastingDetection.Instance.lineRenderer.startColor = lrColorRed;
             RuneCastingDetection.Instance.lineRenderer.endColor = lrColorRed;
@@ -69,6 +73,10 @@ public class RuneCatalogue : MonoBehaviour
                     //Clear the spellnodeSequence List after a failed rune recognition
                     Invoke("ClearSpellnodeSequence", 0.1f);
 
+                    //Temporarily locking the spellnodes, so no new ones can be added to the sequence. Lasts for 2 secs (the same duration as the lineRenderer lingers after rune recognition)
+                    RuneCastingDetection.Instance.spellnodesLocked = true;
+                    Invoke("DelayedSpellnodesUnlock", 2.0f);
+
                     //Color the Line Renderer red!
                     RuneCastingDetection.Instance.lineRenderer.startColor = lrColorRed;
                     RuneCastingDetection.Instance.lineRenderer.endColor = lrColorRed;
@@ -88,6 +96,10 @@ public class RuneCatalogue : MonoBehaviour
             //Clear the spellnodeSequence List after a successful rune recognition
             Invoke("ClearSpellnodeSequence", 0.1f);
 
+            //Temporarily locking the spellnodes, so no new ones can be added to the sequence. Lasts for 2 secs (the same duration as the lineRenderer lingers after rune recognition)
+            RuneCastingDetection.Instance.spellnodesLocked = true;
+            Invoke("DelayedSpellnodesUnlock", 2.0f);
+
             //Color the Line Renderer green!
             RuneCastingDetection.Instance.lineRenderer.startColor = lrColorGreen;
             RuneCastingDetection.Instance.lineRenderer.endColor = lrColorGreen;
@@ -104,5 +116,10 @@ public class RuneCatalogue : MonoBehaviour
     private void ClearSpellnodeSequence()
     {
         RuneCastingDetection.Instance.spellnodeSequence.Clear();
+    }
+
+    private void DelayedSpellnodesUnlock()
+    {
+        RuneCastingDetection.Instance.spellnodesLocked = false;
     }
 }

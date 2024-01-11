@@ -24,6 +24,7 @@ public class RuneCastingDetection : MonoBehaviour
 
     //Public Variables
     public LineRenderer lineRenderer;
+    public bool spellnodesLocked = false;
     public List<GameObject> spellnodeSequence = new List<GameObject>();
     public List<Spellnodes.SpellnodeID[]> runeSequence = new List<Spellnodes.SpellnodeID[]>();
 
@@ -36,29 +37,32 @@ public class RuneCastingDetection : MonoBehaviour
     //Function to add spellnodes touched during spellmode to the spellnodeSequence List (called in "Spellnodes" Script)
     public void AddSpellnodeToSequence(GameObject spellnode)
     {
-        if (spellnodeSequence.Count < 3)
+        if (spellnodesLocked == false)
         {
-            //Add the passed spellnode to the spellnodeSequence List
-            spellnodeSequence.Add(spellnode);
-
-            //Enable the line renderer to be drawn, or more specifically, to have new points vertecies added to it
-            lrDrawable = true;
-
-            if (spellnodeSequence.Count == 3)
+            if (spellnodeSequence.Count < 3)
             {
-                //Check if the spellnode combination resembles a valid rune from the catalogue
-                RuneCatalogue.Instance.CheckForRune(spellnodeSequence);
+                //Add the passed spellnode to the spellnodeSequence List
+                spellnodeSequence.Add(spellnode);
+
+                //Enable the line renderer to be drawn, or more specifically, to have new points vertecies added to it
+                lrDrawable = true;
+
+                if (spellnodeSequence.Count == 3)
+                {
+                    //Check if the spellnode combination resembles a valid rune from the catalogue
+                    RuneCatalogue.Instance.CheckForRune(spellnodeSequence);
+
+                    //Disable the line renderer to be drawn, or more specifically, to have new points vertecies added to it
+                    Invoke("DelayedLRDrawableToggle", 0.01f);
+                }
+            }
+            else if (spellnodeSequence.Count == 3 || spellnodeSequence.Count > 3)
+            {
+                //Do nothings
 
                 //Disable the line renderer to be drawn, or more specifically, to have new points vertecies added to it
-                Invoke("DelayedLRDrawableToggle", 0.01f);
+                lrDrawable = false;
             }
-        }
-        else if (spellnodeSequence.Count == 3 || spellnodeSequence.Count > 3)
-        {
-            //Do nothings
-
-            //Disable the line renderer to be drawn, or more specifically, to have new points vertecies added to it
-            lrDrawable = false;
         }
     }
 
